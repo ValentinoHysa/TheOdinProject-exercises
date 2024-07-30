@@ -2,12 +2,21 @@
 function playGame(){
     let scores = { player: 0, computer: 0 };
 
-    while (scores.player < 5 && scores.computer < 5) {
-    let playerSelection = prompt("Make your choice: ROCK, PAPER, SCISSORS");
-    playRound(playerSelection, scores);
-    }
-    alert("GAME OVER");
+    // while (scores.player < 5 && scores.computer < 5) {
+    // let playerSelection = prompt("Make your choice: ROCK, PAPER, SCISSORS");
+    // playRound(playerSelection, scores);
+    // }
+    // alert("GAME OVER");
 }
+let scores = { player: 0, computer: 0 };
+const buttons = document.querySelectorAll('.game-btn');
+
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        const playerSelection = button.id.toUpperCase();
+        playRound(playerSelection, scores);
+    });
+});
 
 function playRound(playerSelection, scores){
     let computerSelection = randomizeChoice();
