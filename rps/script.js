@@ -19,10 +19,10 @@ function hover(element, enter, leave){
   buttons.forEach(button => {
     hover(button, e => {
         // On hover
-        e.target.setAttribute("style", "background-color: #bd93f9;");
+        e.target.setAttribute("style", "background-color: #7ebab5;");
     }, e => {
         // On exit hover
-        e.target.setAttribute("style", "background-color: #3882f6;");
+        e.target.setAttribute("style", "background-color: #454864;");
     });
 
     button.addEventListener('click', () => {
