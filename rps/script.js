@@ -11,8 +11,6 @@ function playGame(){
 let scores = { player: 0, computer: 0 };
 const buttons = document.querySelectorAll('.game-btn');
 
-const linkButton = document.querySelector(".buttons");
-
 function hover(element, enter, leave){
     element.addEventListener('mouseenter', enter)
     element.addEventListener('mouseleave', leave)
@@ -35,26 +33,34 @@ function hover(element, enter, leave){
 
 function playRound(playerSelection, scores){
     let computerSelection = randomizeChoice();
-    const myDiv = document.querySelector(".result");
-    const content = document.createTextNode("The computer picked " + computerSelection); //TODO: How to make it go to a new line
-    // content.setAttribute = ("style", "color: #white;"); //TODO: fix
-    myDiv.appendChild(content);
-    
+    const resultDiv = document.querySelector(".result");
+
+    resultDiv.innerHTML = ''; //clear the
+
+    const computerChoiceText = document.createElement("div");
+    computerChoiceText.textContent = "The computer picked " + computerSelection;
+    resultDiv.appendChild(computerChoiceText); // we add a line for the computer choice
+
+    //Here starts the logic to determine who won
+    let resultText;
     if (playerSelection === computerSelection){
-        alert("TIE, your score: " + scores.player + " computer score: " + scores.computer);
+        resultText = "TIE!";
     }
     if ((playerSelection == "ROCK" && computerSelection == 'SCISSORS')
     ||  (playerSelection == "SCISSORS" && computerSelection == 'PAPER')
     ||  (playerSelection == "PAPER" && computerSelection == 'ROCK')){
             scores.player++;
-            alert("YOU WIN, your score: " + scores.player + " computer score: " + scores.computer);
+            resultText = "YOU WIN!";
     }
     if ((playerSelection == "ROCK" && computerSelection == 'PAPER')
         ||  (playerSelection == "SCISSORS" && computerSelection == 'ROCK')
         ||  (playerSelection == "PAPER" && computerSelection == 'SCISSORS')){
                 scores.computer++;
-                alert("YOU LOSE, your score: " + scores.player + " computer score: " + scores.computer);
+                resultText = "YOU LOSE!";
         }
+        const gameResultText = document.createElement("div");
+        gameResultText.textContent = resultText + " your score: " + scores.player + " computer score: " + scores.computer;
+        resultDiv.appendChild(gameResultText);
 }
 
 function randomizeChoice(){

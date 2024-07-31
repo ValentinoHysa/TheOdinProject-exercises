@@ -38,8 +38,9 @@ body {
     gap: 15px;
 }
 
-.result{
-    display: flex;
+.result div{
+    display: block;
+    margin-bottom: 10px;
     flex: 2;
     flex-direction: row;
     align-items: center;
@@ -65,4 +66,8 @@ body {
     align-items: end;
     flex-direction:flex-end;
     padding: 30px;
+}
+
+div{
+    text-align: center;
 }
