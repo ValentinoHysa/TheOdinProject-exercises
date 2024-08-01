@@ -1,6 +1,6 @@
 
 function playGame() {
-    let scores = { player: 0, computer: 0 };
+    let scores = { player: 0, computer: 0 }; //TODO: For some reason after I restart the game it glitches
     
     buttons.forEach(button => {
         hover(button, e => {
@@ -41,11 +41,13 @@ function hover(element, enter, leave){
     playAgainButton.style.position = "absolute";
     playAgainButton.style.left = "50%";
     playAgainButton.style.transform = "translateX(-50%)";
+
     hover(playAgainButton, e => {
         e.target.style.backgroundColor = "#7ebab5";
     }, e => {
         e.target.style.backgroundColor = "#454864";
     });
+    
     playAgainButton.addEventListener('click', resetGame);
     resultDiv.appendChild(playAgainButton);
 
@@ -57,7 +59,6 @@ function hover(element, enter, leave){
 function resetGame() {
     const resultDiv = document.querySelector('.result');
     resultDiv.innerHTML = '';  // Clear the result div
-
     // Re-enable game buttons
     const gameButtons = document.querySelectorAll('.game-btn');
     gameButtons.forEach(button => button.disabled = false);
