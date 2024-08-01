@@ -1,41 +1,78 @@
 
-function playGame(){
+function playGame() {
     let scores = { player: 0, computer: 0 };
-
-    // while (scores.player < 5 && scores.computer < 5) {
-    // let playerSelection = prompt("Make your choice: ROCK, PAPER, SCISSORS");
-    // playRound(playerSelection, scores);
-    // }
-    // alert("GAME OVER");
+    
+    buttons.forEach(button => {
+        hover(button, e => {
+            e.target.setAttribute("style", "background-color: #7ebab5;");
+        }, e => {
+            e.target.setAttribute("style", "background-color: #454864;");
+        });
+    
+        button.addEventListener('click', () => {
+            const playerSelection = button.id.toUpperCase();
+            playRound(playerSelection, scores);
+            
+            if (scores.player === 5 || scores.computer === 5) {
+                alert("GAME OVER");
+                // Reset scores if you want to play again
+                endGame(scores);
+            }
+        });
+    });
 }
-let scores = { player: 0, computer: 0 };
 const buttons = document.querySelectorAll('.game-btn');
 
 function hover(element, enter, leave){
     element.addEventListener('mouseenter', enter)
     element.addEventListener('mouseleave', leave)
   }
+  function endGame(scores) {
+    const resultDiv = document.querySelector('.result');
+    resultDiv.innerHTML = '';  // Clear the result div
 
-  buttons.forEach(button => {
-    hover(button, e => {
-        // On hover
-        e.target.setAttribute("style", "background-color: #7ebab5;");
+    const gameOverText = document.createElement('div');
+    gameOverText.textContent = `GAME OVER! Final Score - You: ${scores.player}, Computer: ${scores.computer}`;
+    gameOverText.style.padding = "10px 10px";
+    resultDiv.appendChild(gameOverText);
+
+    const playAgainButton = document.createElement('button');
+    playAgainButton.textContent = 'Play Again?';
+    playAgainButton.style.position = "absolute";
+    playAgainButton.style.left = "50%";
+    playAgainButton.style.transform = "translateX(-50%)";
+    hover(playAgainButton, e => {
+        e.target.style.backgroundColor = "#7ebab5";
     }, e => {
-        // On exit hover
-        e.target.setAttribute("style", "background-color: #454864;");
+        e.target.style.backgroundColor = "#454864";
     });
+    playAgainButton.addEventListener('click', resetGame);
+    resultDiv.appendChild(playAgainButton);
 
-    button.addEventListener('click', () => {
-        const playerSelection = button.id.toUpperCase();
-        playRound(playerSelection, scores);
-    });
-});
+    // Disable game buttons
+    const gameButtons = document.querySelectorAll('.game-btn');
+    gameButtons.forEach(button => button.disabled = true);
+}
+
+function resetGame() {
+    const resultDiv = document.querySelector('.result');
+    resultDiv.innerHTML = '';  // Clear the result div
+
+    // Re-enable game buttons
+    const gameButtons = document.querySelectorAll('.game-btn');
+    gameButtons.forEach(button => button.disabled = false);
+
+    // Start a new game
+    playGame();
+}
+
 
 function playRound(playerSelection, scores){
     let computerSelection = randomizeChoice();
     const resultDiv = document.querySelector(".result");
 
-    resultDiv.innerHTML = ''; //clear the
+    resultDiv.innerHTML = ''; //clear the divs
+    
 
     const computerChoiceText = document.createElement("div");
     computerChoiceText.textContent = "The computer picked " + computerSelection;
@@ -76,4 +113,3 @@ function randomizeChoice(){
 }
 
 playGame();
-//Studiati getElementById, addEventListener, handleClick
