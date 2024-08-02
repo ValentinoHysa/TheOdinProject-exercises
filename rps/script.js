@@ -1,7 +1,10 @@
 
+let scores = { player: 0, computer: 0 }; //Need this to be global
+
+
 function playGame() {
-    let scores = { player: 0, computer: 0 }; //TODO: For some reason after I restart the game it glitches
-    
+     //TODO: For some reason after I restart the game it glitches
+    const buttons = document.querySelectorAll('.game-btn');
     buttons.forEach(button => {
         hover(button, e => {
             e.target.setAttribute("style", "background-color: #7ebab5;");
@@ -59,12 +62,19 @@ function hover(element, enter, leave){
 function resetGame() {
     const resultDiv = document.querySelector('.result');
     resultDiv.innerHTML = '';  // Clear the result div
+    
+    // Reset scores
+    scores.player = 0;
+    scores.computer = 0;
+    
     // Re-enable game buttons
     const gameButtons = document.querySelectorAll('.game-btn');
-    gameButtons.forEach(button => button.disabled = false);
+    gameButtons.forEach(button => {
+        button.disabled = false;
+        button.replaceWith(button.cloneNode(true)); // Remove old event listeners
+    });
 
-    // Start a new game
-    playGame();
+    playGame(); //Start a new game
 }
 
 
