@@ -3,7 +3,6 @@ let scores = { player: 0, computer: 0 }; //Need this to be global
 
 
 function playGame() {
-     //TODO: For some reason after I restart the game it glitches
     const buttons = document.querySelectorAll('.game-btn');
     buttons.forEach(button => {
         hover(button, e => {
@@ -54,9 +53,9 @@ function hover(element, enter, leave){
     playAgainButton.addEventListener('click', resetGame);
     resultDiv.appendChild(playAgainButton);
 
-    // Disable game buttons
+    
     const gameButtons = document.querySelectorAll('.game-btn');
-    gameButtons.forEach(button => button.disabled = true);
+    gameButtons.forEach(button => button.disabled = true); // Disable game buttons
 }
 
 function resetGame() {
@@ -89,7 +88,7 @@ function playRound(playerSelection, scores){
     computerChoiceText.textContent = "The computer picked " + computerSelection;
     resultDiv.appendChild(computerChoiceText); // we add a line for the computer choice
 
-    //Here starts the logic to determine who won
+    //here starts the logic to determine who won
     let resultText;
     if (playerSelection === computerSelection){
         resultText = "TIE!";
