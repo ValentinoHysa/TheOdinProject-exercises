@@ -7,4 +7,5 @@
 
 .container div{
     border: 1px;
+    gap: 1px;
 }
