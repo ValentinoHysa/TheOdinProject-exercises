@@ -14,4 +14,4 @@ function createGrid(squares){
     }
 }
 
-createGrid(10);
+createGrid(5);
