@@ -1,20 +1,21 @@
-function hover(element, enter, leave){
-    element.addEventListener('mouseenter', enter)
-    element.addEventListener('mouseleave', leave)
-  }
+function hover(element, enter) {
+    element.addEventListener('mouseenter', enter);
+}
   document.addEventListener('DOMContentLoaded', function() {
-    //TODO: add the hover behaviour
     const submitButton = document.getElementById('submitButton');
     submitButton.addEventListener('click', function() {
         const squareNum = document.getElementById('squareNum').value;
-        createGrid(parseInt(squareNum));
+        if((squareNum > 100) || (!typeof squareNum === 'number')){
+            alert("Please insert an integer up to 100")
+        } else {
+            createGrid(parseInt(squareNum));
+        }
     });
 });
 function createGrid(squares){
-    //TODO: everytime this starts it should empty out the contaner first
-    const containerLink = document.querySelector(".container"); //we're gonna appendchild on this grid container
-    //the idea here is to use flex, define a direction make n=squares divs in 2 nested loops
-    //on the outside loop we go to the next row?
+    const containerLink = document.querySelector(".container");
+
+    containerLink.innerHTML = ''; //empty out the container
     const rows = squares;
     for(row = 0; row < rows; ++row){
         const myRow = document.createElement("div");
@@ -24,8 +25,16 @@ function createGrid(squares){
            const mySquare = document.createElement("div");
            mySquare.classList.add("square");
             myRow.appendChild(mySquare);
-        }                 
-        //go to the next row???        
+        }     
     }
+    const squareDivs = document.querySelectorAll(".square");
+    squareDivs.forEach(squareDiv => {
+        let opacity = 0;
+        hover(squareDiv, e => {
+            opacity += 0.1;
+            if (opacity > 1) opacity = 1;
+            e.target.style.backgroundColor = `rgba(0, 0, 0, ${opacity})`;
+        });
+    });
 }
 
